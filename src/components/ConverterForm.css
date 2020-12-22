@@ -1,0 +1,22 @@
+.converter {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-hex {
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.input-rgb {
+    width: 166px;
+    min-height: 38px;
+    padding: 10px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+
+}
