@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import './ConverterForm.css';
+import InputRgb from "./InputRgb";
 
 export default function ConverterForm () {
-    const [form, setForm] = useState({name: '', isValid: '', valueInRgb: ''});
+    const [form, setForm] = useState({name: '', isValid: ''});
+    const [valueInRgb, setValueInRgb] = useState({value: ''})
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -33,7 +35,9 @@ export default function ConverterForm () {
             x.push(parseInt(hex.slice(2, 4), 16));
             x.push(parseInt(hex.slice(4, 6), 16));
 
-            setForm(form => ({...form, valueInRgb: "rgb(" + x.toString()+ ")"}))
+            setValueInRgb(valueInRgb => ({...valueInRgb, value: "rgb(" + x.toString()+ ")"}))
+        } else {
+            setValueInRgb(valueInRgb => ({...valueInRgb, value: 'Error!'}))
         }
 
     }
@@ -41,23 +45,21 @@ export default function ConverterForm () {
     const onValueChange = (e) => {
         const hexRegex = /^[#]*([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/i;
         let isValid;
-        let valueInRgb;
 
         if(hexRegex.test(e.target.value)) {
             isValid = true;
         } else {
             isValid = false;
-            valueInRgb = 'Error!'
         }
 
-        setForm(form => ({...form, name: e.target.value, isValid, valueInRgb}));
+        setForm(form => ({...form, name: e.target.value, isValid}));
 
     }
 
 
     return (
         <div className='converter'
-             style={{backgroundColor: form.valueInRgb}}
+             style={{backgroundColor: ((valueInRgb.value === 'Error!') ? '' : valueInRgb.value)}}
         >
             <form onSubmit={handleSubmit}>
                 <input
@@ -69,7 +71,7 @@ export default function ConverterForm () {
                     onChange={onValueChange}
                 />
             </form>
-                <div className='input-rgb'>{form.valueInRgb}</div>
+                <InputRgb valueInRgb={valueInRgb}/>
 
         </div>
     )

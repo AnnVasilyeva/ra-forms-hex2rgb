@@ -9,14 +9,6 @@
 
 .input-hex {
     padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
-.input-rgb {
-    width: 166px;
-    min-height: 38px;
-    padding: 10px;
-    border: 1px solid #000;
-    box-sizing: border-box;
-
-}
