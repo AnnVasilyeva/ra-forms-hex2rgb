@@ -3,12 +3,11 @@ import './ConverterForm.css';
 import InputRgb from "./InputRgb";
 
 export default function ConverterForm () {
-    const [form, setForm] = useState({name: '', isValid: ''});
+    const [form, setForm] = useState({name: ''});
     const [valueInRgb, setValueInRgb] = useState({value: ''})
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         hexToRgb(form.name)
     }
 
@@ -24,8 +23,8 @@ export default function ConverterForm () {
         }
     }
 
-    const hexToRgb = (hex) => {
-        if(form.isValid) {
+    const hexToRgb = (hex, isValid) => {
+        if(isValid) {
             let x = [];
             hex = hex.replace('#', '');
             if(hex.length !== 6) {
@@ -44,16 +43,14 @@ export default function ConverterForm () {
 
     const onValueChange = (e) => {
         const hexRegex = /^[#]*([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/i;
-        let isValid;
 
         if(hexRegex.test(e.target.value)) {
-            isValid = true;
+            hexToRgb(e.target.value, true);
         } else {
-            isValid = false;
+            hexToRgb(e.target.value, false);
         }
 
-        setForm(form => ({...form, name: e.target.value, isValid}));
-
+        setForm(form => ({...form, name: e.target.value}));
     }
 
 
@@ -72,7 +69,6 @@ export default function ConverterForm () {
                 />
             </form>
                 <InputRgb valueInRgb={valueInRgb}/>
-
         </div>
     )
 
